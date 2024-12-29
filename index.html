@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +38,7 @@
       color: white;
       opacity: 0.8;
       font-size: 1rem;
-      animation: fall linear infinite, sway 3s ease-in-out infinite;
+      animation: fall linear infinite, sway 2s ease-in-out infinite;
     }
 
     @keyframes fall {
@@ -122,7 +122,7 @@
       const snowflake = document.createElement('div');
       snowflake.classList.add('snowflake');
       snowflake.style.left = Math.random() * 100 + 'vw'; // Rastgele yatay pozisyon
-      snowflake.style.animationDuration = Math.random() * 3 + 5 + 's'; // Rastgele düşüş süresi
+      snowflake.style.animationDuration = Math.random() * 1 + 2 + 's'; // Daha hızlı süre (2-3 saniye)
       snowflake.style.fontSize = Math.random() * 10 + 10 + 'px'; // Rastgele boyut
       snowflake.textContent = '❄';
       document.body.appendChild(snowflake);
@@ -130,10 +130,10 @@
       // Animasyon bitince kar tanesini sil
       setTimeout(() => {
         snowflake.remove();
-      }, 8000);
+      }, 3000); // 3 saniye sonra sil
     }
 
-    setInterval(createSnowflake, 200); // 200ms'de bir kar tanesi oluştur
+    setInterval(createSnowflake, 100); // 100ms'de bir kar tanesi oluştur (daha sık)
   </script>
 </body>
 </html>
