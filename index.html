@@ -4,88 +4,140 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yeni Yıla Geri Sayım</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background: linear-gradient(to bottom, #1e3c72, #2a5298);
+      background: radial-gradient(circle, #1b2735, #090a0f);
       color: #fff;
-      overflow: hidden;
     }
+
     #countdown {
       text-align: center;
+      position: relative;
+      z-index: 10;
     }
+
     h1 {
       font-size: 3rem;
-      margin-bottom: 20px;
-      animation: fadeIn 2s ease-in-out;
+      margin-bottom: 30px;
+      color: #f39c12;
+      text-shadow: 0 0 10px #f39c12, 0 0 20px #f39c12, 0 0 30px #e67e22, 0 0 40px #e67e22;
     }
+
     #timer {
-      font-size: 2rem;
-      font-weight: bold;
       display: flex;
       justify-content: center;
       gap: 20px;
     }
+
     .time-box {
       background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 10px 20px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
     }
+
     .time-box span {
       display: block;
-      font-size: 1.2rem;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #00cec9;
+      text-shadow: 0 0 10px #00cec9, 0 0 20px #0984e3;
     }
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(-20px); }
-      100% { opacity: 1; transform: translateY(0); }
+
+    .time-box small {
+      font-size: 1rem;
+      text-transform: uppercase;
+      color: #dfe6e9;
     }
-    @keyframes snowfall {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(100vh); }
+
+    /* Yıldızlar */
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      overflow: hidden;
     }
+
+    .stars::after {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: transparent url('https://i.imgur.com/KQOVDv6.png') repeat;
+      animation: moveStars 50s linear infinite;
+    }
+
+    /* Kar Taneleri */
     .snowflake {
       position: absolute;
       top: -10px;
-      background-color: white;
+      background-color: rgba(255, 255, 255, 0.7);
       border-radius: 50%;
-      opacity: 0.8;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
       animation: snowfall 10s linear infinite;
+    }
+
+    @keyframes snowfall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes moveStars {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(200%);
+      }
     }
   </style>
 </head>
 <body>
+  <div class="stars"></div>
   <div id="countdown">
     <h1>Yeni Yıla Geri Sayım</h1>
     <div id="timer">
       <div class="time-box">
         <span id="days">00</span>
-        Gün
+        <small>Gün</small>
       </div>
       <div class="time-box">
         <span id="hours">00</span>
-        Saat
+        <small>Saat</small>
       </div>
       <div class="time-box">
         <span id="minutes">00</span>
-        Dakika
+        <small>Dakika</small>
       </div>
       <div class="time-box">
         <span id="seconds">00</span>
-        Saniye
+        <small>Saniye</small>
       </div>
     </div>
   </div>
 
   <script>
-    // Geri sayımı hesaplayan fonksiyon
+    // Geri Sayım Fonksiyonu
     function updateCountdown() {
       const newYear = new Date(new Date().getFullYear() + 1, 0, 1);
       const now = new Date();
@@ -107,20 +159,21 @@
       document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
     }
 
-    // Kar tanelerini oluşturma
+    // Kar Taneleri Oluşturma
     function createSnowflakes() {
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 50; i++) {
         const snowflake = document.createElement('div');
         snowflake.classList.add('snowflake');
         snowflake.style.left = `${Math.random() * 100}vw`;
         snowflake.style.width = `${Math.random() * 10 + 5}px`;
         snowflake.style.height = snowflake.style.width;
         snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
+        snowflake.style.animationDelay = `${Math.random() * 5}s`;
         document.body.appendChild(snowflake);
       }
     }
 
-    // Başlat
+    // Başlatma
     createSnowflakes();
     setInterval(updateCountdown, 1000);
   </script>
