@@ -1,2 +1,128 @@
-<a href="https://kuzeytunakale.github.io/baba/Blue 3D Content Management Tips Poster.png> Tıkla! </a>
-<p> Merhaba </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yeni Yıla Geri Sayım</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to bottom, #1e3c72, #2a5298);
+      color: #fff;
+      overflow: hidden;
+    }
+    #countdown {
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+    #timer {
+      font-size: 2rem;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .time-box {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 10px 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .time-box span {
+      display: block;
+      font-size: 1.2rem;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes snowfall {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(100vh); }
+    }
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      background-color: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: snowfall 10s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <div id="countdown">
+    <h1>Yeni Yıla Geri Sayım</h1>
+    <div id="timer">
+      <div class="time-box">
+        <span id="days">00</span>
+        Gün
+      </div>
+      <div class="time-box">
+        <span id="hours">00</span>
+        Saat
+      </div>
+      <div class="time-box">
+        <span id="minutes">00</span>
+        Dakika
+      </div>
+      <div class="time-box">
+        <span id="seconds">00</span>
+        Saniye
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Geri sayımı hesaplayan fonksiyon
+    function updateCountdown() {
+      const newYear = new Date(new Date().getFullYear() + 1, 0, 1);
+      const now = new Date();
+      const difference = newYear - now;
+
+      if (difference <= 0) {
+        document.getElementById('countdown').innerHTML = "<h1>Mutlu Yıllar!</h1>";
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      document.getElementById('days').textContent = String(days).padStart(2, '0');
+      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    // Kar tanelerini oluşturma
+    function createSnowflakes() {
+      for (let i = 0; i < 100; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.classList.add('snowflake');
+        snowflake.style.left = `${Math.random() * 100}vw`;
+        snowflake.style.width = `${Math.random() * 10 + 5}px`;
+        snowflake.style.height = snowflake.style.width;
+        snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
+        document.body.appendChild(snowflake);
+      }
+    }
+
+    // Başlat
+    createSnowflakes();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
