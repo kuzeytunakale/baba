@@ -13,7 +13,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle, #1a2a6c, #b21f1f, #fdbb2d);
+      background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d);
       color: white;
       font-family: 'Arial', sans-serif;
       overflow: hidden;
@@ -31,36 +31,41 @@
       animation: zoomIn 2s ease-in-out;
     }
 
-    /* Yıldız efekti */
-    .stars {
+    /* Kar tanesi efekti */
+    .snowflake {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: transparent;
-      overflow: hidden;
-      z-index: -1;
+      top: -10px;
+      color: white;
+      opacity: 0.8;
+      font-size: 1rem;
+      animation: fall linear infinite, sway 2s infinite ease-in-out;
     }
 
-    .stars span {
-      position: absolute;
-      display: block;
-      width: 2px;
-      height: 2px;
-      background: white;
-      animation: twinkle 5s infinite;
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
     }
 
-    @keyframes twinkle {
+    @keyframes sway {
       0%, 100% {
-        opacity: 0.3;
-        transform: translateY(0);
+        transform: translateX(0);
       }
       50% {
-        opacity: 1;
-        transform: translateY(-10px);
+        transform: translateX(15px);
       }
+    }
+
+    /* Kar birikintisi */
+    .snow-pile {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 10%;
+      background: white;
+      border-top-left-radius: 50%;
+      border-top-right-radius: 50%;
+      box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
     }
 
     /* Animasyonlar */
@@ -81,8 +86,8 @@
     <div id="countdown">Yükleniyor...</div>
   </div>
 
-  <!-- Yıldızlar -->
-  <div class="stars" id="stars"></div>
+  <!-- Kar birikintisi -->
+  <div class="snow-pile"></div>
 
   <script>
     // Geri Sayım Fonksiyonu
@@ -109,24 +114,23 @@
 
     updateCountdown();
 
-    // Yıldız Efekti
-    const starsContainer = document.getElementById('stars');
-    const numStars = 100;
-    for (let i = 0; i < numStars; i++) {
-      const star = document.createElement('span');
-      const size = Math.random() * 3 + 1 + 'px';
-      const top = Math.random() * 100 + '%';
-      const left = Math.random() * 100 + '%';
-      const delay = Math.random() * 5 + 's';
+    // Kar Tanesi Efekti
+    function createSnowflake() {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+      snowflake.style.left = Math.random() * 100 + 'vw';
+      snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+      snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+      snowflake.textContent = '❄';
+      document.body.appendChild(snowflake);
 
-      star.style.width = size;
-      star.style.height = size;
-      star.style.top = top;
-      star.style.left = left;
-      star.style.animationDelay = delay;
-
-      starsContainer.appendChild(star);
+      // Kar tanesi animasyon sonrası siliniyor
+      setTimeout(() => {
+        snowflake.remove();
+      }, 5000);
     }
+
+    setInterval(createSnowflake, 200);
   </script>
 </body>
 </html>
